@@ -129,6 +129,21 @@ app.get("/account", verifyIExistsAccountCPF, (request, response) => {
   return response.json(customer);
 });
 
+app.delete("/account", verifyIExistsAccountCPF, (request, response) => {
+  const { customer } = request;
+
+  customers.splice(customer, 1);
+
+  return response.status(200).json(customers);
+});
+
+app.get("/balance", verifyIExistsAccountCPF, (request, response) => {
+  const { customer } = request;
+  const balance = getBalance(customer.statement);
+
+  return response.json(balance);
+});
+
 app.listen(3003, () => {
   console.log("run API");
 });
