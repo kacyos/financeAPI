@@ -114,6 +114,21 @@ app.get("/statement/date", verifyIExistsAccountCPF, (request, response) => {
   return response.json(statement);
 });
 
+app.put("/account", verifyIExistsAccountCPF, (request, response) => {
+  const { name } = request.body;
+  const { customer } = request;
+
+  customer.name = name;
+
+  response.status(201).send();
+});
+
+app.get("/account", verifyIExistsAccountCPF, (request, response) => {
+  const { customer } = request;
+
+  return response.json(customer);
+});
+
 app.listen(3003, () => {
   console.log("run API");
 });
